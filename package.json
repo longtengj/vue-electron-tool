@@ -5,6 +5,10 @@
   "description": "类poct仪器工具软件",
   "license": null,
   "main": "./dist/electron/main.js",
+  "repository": {
+    "type": "git",
+    "url": "http://192.168.4.59:3000/tools/xpoct-tool.git"
+  },
   "scripts": {
     "build": "node .electron-vue/build.js && electron-builder",
     "build:dir": "node .electron-vue/build.js && electron-builder --dir",
@@ -17,7 +21,8 @@
     "pack:renderer": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.renderer.config.js",
     "test": "npm run unit",
     "unit": "karma start test/unit/karma.conf.js",
-    "postinstall": ""
+    "postinstall": "install-app-deps",
+    "packageVersion": "echo $npm_package_version"
   },
   "build": {
     "productName": "xpoct-tool",
@@ -52,6 +57,10 @@
     },
     "linux": {
       "icon": "build/icons"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
     }
   },
   "dependencies": {
@@ -60,7 +69,8 @@
     "vue-electron": "^1.0.6",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
-    "vuex-electron": "^1.0.0"
+    "vuex-electron": "^1.0.0",
+    "sqlite3": "^4.0.1"
   },
   "devDependencies": {
     "ajv": "^6.5.0",
