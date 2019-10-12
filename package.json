@@ -1,6 +1,6 @@
 {
   "name": "xpoct-tool",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "longtengjun <longtengj@xinchengbio.com>",
   "description": "类poct仪器工具软件",
   "license": null,
@@ -66,6 +66,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "serialport": "^7.1.5",
+    "virtual-serialport": "^4.0.1",
     "sqlite3": "^4.0.1",
     "vue": "^2.5.16",
     "vue-electron": "^1.0.6",

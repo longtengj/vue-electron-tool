@@ -10,6 +10,7 @@
 <script>
     import Aside from '../components/Aside.vue';
     import Header from '../components/Header.vue';
+    import serialport from 'serialport'
 
     export default {
         data() {
@@ -19,7 +20,16 @@
             Aside,
             Header,
         },
+        created() {
+            serialport.list((err, ports) => {
+                console.log('ports', ports);
+
+            })
+        },
+
+
     };
+
 </script>
 <style lang="less">
     @import "../assets/less/global.less";
