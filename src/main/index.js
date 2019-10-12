@@ -1,4 +1,5 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, ipcMain } from 'electron'
+import { autoUpdater } from 'electron-updater';
 
 /**
  * Set `__static` path to static files in production
@@ -13,14 +14,22 @@ const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
   : `file://${__dirname}/index.html`
 
-function createWindow () {
+function createWindow() {
   /**
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    height: 563,
+    // height: 563,
+    // useContentSize: true,
+    // width: 1000
+
+    frame: false,
     useContentSize: true,
-    width: 1000
+    width: 1366,
+    height: 768,
+    minWidth: 800,
+    minHeight: 600,
+    show: false,
   })
 
   mainWindow.loadURL(winURL)
@@ -28,9 +37,23 @@ function createWindow () {
   mainWindow.on('closed', () => {
     mainWindow = null
   })
+
+  // 加载好html再呈现window，避免白屏
+  mainWindow.on('ready-to-show', () => {
+    mainWindow.show();
+    mainWindow.focus();
+  });
+
+  // mainWindow.webContents.openDevTools({ detach: true });
 }
 
-app.on('ready', createWindow)
+// app.on('ready', createWindow)
+app.on('ready', () => {
+  if (process.env.NODE_ENV === 'production') autoUpdater.checkForUpdatesAndNotify();
+  // autoUpdater.checkForUpdatesAndNotify();
+  createWindow();
+});
+
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
@@ -43,6 +66,40 @@ app.on('activate', () => {
     createWindow()
   }
 })
+
+/**
+ * 边框
+ */
+// 窗口最小化
+ipcMain.on('min-window', () => {
+  mainWindow.minimize();
+});
+// 窗口最大化
+ipcMain.on('max-window', () => {
+  if (mainWindow.isMaximized()) {
+    mainWindow.restore();
+  } else {
+    mainWindow.maximize();
+  }
+});
+// 关闭
+ipcMain.on('close-window', () => {
+  mainWindow.close();
+});
+
+/**
+ * 导出下载
+ */
+ipcMain.on('download', (event, downloadPath) => {
+  mainWindow.webContents.downloadURL(downloadPath);
+  mainWindow.webContents.session.once('will-download', (event, item) => {
+    item.once('done', (event, state) => {
+      // 成功的话 state为completed 取消的话 state为cancelled
+      mainWindow.webContents.send('downstate', state);
+    });
+  });
+});
+
 
 /**
  * Auto Updater
@@ -63,3 +120,45 @@ app.on('ready', () => {
   if (process.env.NODE_ENV === 'production') autoUpdater.checkForUpdates()
 })
  */
+
+/**
+* 自动更新
+*/
+
+function sendUpdateMessage(message, data) {
+  mainWindow.webContents.send('update-message', { message, data });
+}
+
+// 阻止程序关闭自动安装升级
+autoUpdater.autoInstallOnAppQuit = false;
+
+autoUpdater.on('error', data => {
+  sendUpdateMessage('error', data);
+});
+
+/* // 检查更新
+autoUpdater.on('checking-for-update', data => {
+  sendUpdateMessage('checking-for-update', data);
+});*/
+
+// 有可用更新
+autoUpdater.on('update-available', data => {
+  sendUpdateMessage('update-available', data);
+});
+
+// 已经最新
+autoUpdater.on('update-not-available', data => {
+  sendUpdateMessage('update-not-available', data);
+});
+
+// 更新下载进度事件
+autoUpdater.on('download-progress', data => {
+  sendUpdateMessage('download-progress', data);
+});
+// 更新下载完成事件(event, releaseNotes, releaseName, releaseDate, updateUrl, quitAndUpdate)
+autoUpdater.on('update-downloaded', () => {
+  sendUpdateMessage('update-downloaded', {});
+  ipcMain.once('update-now', () => {
+    autoUpdater.quitAndInstall();
+  });
+});
