@@ -8,11 +8,9 @@ import store from './store'
 import filters from './utils/util';
 import db from './utils/db';
 import logger from './utils/logger';
-// 升级脚本
-import './utils/upgrade';
-
 import routes from './router/route';
 
+import './utils/upgrade';
 import 'iview/dist/styles/iview.css';
 import './assets/less/common.less';
 

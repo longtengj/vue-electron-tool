@@ -1,7 +1,7 @@
 {
   "name": "xpoct-tool",
-  "version": "1.0.1",
-  "author": "longtengjun <longtengjun@xinchengbio.com>",
+  "version": "0.1.1",
+  "author": "longtengjun <longtengj@xinchengbio.com>",
   "description": "类poct仪器工具软件",
   "license": null,
   "main": "./dist/electron/main.js",
@@ -64,13 +64,14 @@
     }
   },
   "dependencies": {
-    "vue": "^2.5.16",
     "axios": "^0.18.0",
+    "serialport": "^7.1.5",
+    "sqlite3": "^4.0.1",
+    "vue": "^2.5.16",
     "vue-electron": "^1.0.6",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
-    "vuex-electron": "^1.0.0",
-    "sqlite3": "^4.0.1"
+    "vuex-electron": "^1.0.0"
   },
   "devDependencies": {
     "ajv": "^6.5.0",
@@ -93,6 +94,7 @@
     "electron-debug": "^1.5.0",
     "electron-devtools-installer": "^2.2.4",
     "electron-builder": "^20.19.2",
+    "electron-rebuild": "^1.8.5",
     "electron-settings": "^3.2.0",
     "electron-updater": "^2.23.3",
     "mini-css-extract-plugin": "0.4.0",
