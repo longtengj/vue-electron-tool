@@ -66,13 +66,14 @@
   "dependencies": {
     "axios": "^0.18.0",
     "serialport": "^7.1.5",
-    "virtual-serialport": "^4.0.1",
     "sqlite3": "^4.0.1",
     "vue": "^2.5.16",
     "vue-electron": "^1.0.6",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
-    "vuex-electron": "^1.0.0"
+    "vuex-electron": "^1.0.0",
+    "lodash": "^4.17.10",
+    "dotenv": "^6.0.0"
   },
   "devDependencies": {
     "ajv": "^6.5.0",

@@ -11,11 +11,11 @@ const menu = [
     path: '/detailList',
     component: require('@/pages/menu/detaillist/index').default,
   },
-  // {
-  //   icon: 'clipboard',
-  //   title: '协议调试',
-  //   path: '/lockerList',
-  //   component: require('@/pages/menu/LockerList').default,
-  // },
+  {
+    icon: 'clipboard',
+    title: '协议调试',
+    path: '/lockerList',
+    component: require('@/pages/menu/LockerList').default,
+  },
 ];
 export default menu;

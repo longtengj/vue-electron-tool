@@ -1,0 +1,30 @@
+const lockers = [
+    { id: 'Box1', status: 'Available', command: 'deligramA', response: 97 },
+    { id: 'Box2', status: 'Available', command: 'deligramB', response: 98 },
+    { id: 'Box3', status: 'Available', command: 'deligramC', response: 99 },
+    { id: 'Box4', status: 'Available', command: 'deligramD', response: 100 },
+    { id: 'Box5', status: 'Available', command: 'deligramE', response: 101 },
+    { id: 'Box6', status: 'Available', command: 'deligramF', response: 102 },
+    { id: 'Box7', status: 'Available', command: 'deligramG', response: 103 },
+    { id: 'Box8', status: 'Available', command: 'deligramH', response: 104 },
+    { id: 'Box9', status: 'Available', command: 'deligramI', response: 105 },
+    { id: 'Box10', status: 'Available', command: 'deligramJ', response: 106 },
+    { id: 'Box11', status: 'Available', command: 'deligramK', response: 107 },
+    { id: 'Box12', status: 'Available', command: 'deligramL', response: 108 },
+    { id: 'Box13', status: 'Available', command: 'deligramM', response: 109 },
+    { id: 'Box14', status: 'Available', command: 'deligramN', response: 110 },
+    { id: 'Box15', status: 'Available', command: 'deligramO', response: 111 },
+    { id: 'Box16', status: 'Available', command: 'deligramP', response: 112 },
+    { id: 'Box17', status: 'Available', command: 'deligramQ', response: 113 },
+    { id: 'Box18', status: 'Available', command: 'deligramR', response: 114 },
+    { id: 'Box19', status: 'Available', command: 'deligramS', response: 115 },
+    { id: 'Box20', status: 'Available', command: 'deligramT', response: 116 },
+    { id: 'Box21', status: 'Available', command: 'deligramU', response: 117 },
+    { id: 'Box22', status: 'Available', command: 'deligramV', response: 118 },
+    { id: 'Box23', status: 'Available', command: 'deligramW', response: 119 },
+    { id: 'Box24', status: 'Available', command: 'deligramX', response: 120 },
+    { id: 'Box25', status: 'Available', command: 'deligramY', response: 121 },
+    { id: 'Box26', status: 'Available', command: 'deligramZ', response: 122 }
+]
+
+export default lockers
