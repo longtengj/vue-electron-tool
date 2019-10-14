@@ -1,5 +1,5 @@
 <style lang="less">
-  @import "../assets/less/global.less";
+  @import "../../assets/less/global.less";
 
   header {
     font-family: "Microsoft YaHei";
@@ -93,7 +93,7 @@
   </header>
 </template>
 <script>
-  import packageJson from '../../../package.json';
+  import packageJson from '../../../../package.json';
 
   export default {
     data() {

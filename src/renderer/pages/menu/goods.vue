@@ -153,8 +153,8 @@
   </div>
 </template>
 <script>
-  import util from '../../../utils/util';
-  import download from '../../../utils/download';
+  import util from '../../utils/util';
+  import download from '../../utils/download';
 
   export default {
     data() {
