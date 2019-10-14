@@ -11,6 +11,7 @@
       left: 0;
       right: 0;
       bottom: 40px;
+      text-align: center;
     }
     .aside-drop-menu {
       position: absolute;
@@ -47,14 +48,15 @@
           :active-name="activeMenuName"
           accordion
           class="layout-menu-left">
-      <Menu-item v-for="(menu, index) in MENU"
+      <Menu-item v-for="(menu, index) in menus"
                  :name="menu.path"
                  :key="index">
         <Tooltip :content="menu.title"
                  placement="right"
                  :delay="800">
           <Icon :type="menu.icon"
-                :size="20"></Icon>
+                :size="30"
+                color="white"></Icon>
         </Tooltip>
       </Menu-item>
     </Menu>
@@ -63,11 +65,11 @@
                 placement="top-start"
                 @on-click="dropMenuClick">
         <Icon type="navicon-round"
-              :size="26"
+              :size="30"
               color="white"></Icon>
         <DropdownMenu slot="list">
           <DropdownItem name="serialport">
-            <Icon type="ios-hammer-outline"
+            <Icon type="ios-cloud-download-outline"
                   :size="18" />串口设置
           </DropdownItem>
           <DropdownItem name="update">
@@ -76,7 +78,7 @@
           </DropdownItem>
           <DropdownItem name="about">
             <Icon type="ios-person-outline"
-                  :size="18" />关于
+                  :size="18" />关于软件
           </DropdownItem>
         </DropdownMenu>
       </Dropdown>
@@ -111,15 +113,14 @@
 
 <script>
   import SerialportCompontent from './serialport.vue'
-  import MENU from "../../router/menu";
+  import menus from "../../router/menu";
   import packageJson from "../../../../package.json";
   import { docDir } from "../../utils/settings";
-  import store from "../../store";
 
   export default {
     data() {
       return {
-        MENU,
+        menus,
         activeMenuName: "",
         modalShow: false,
         serialportModal: false,

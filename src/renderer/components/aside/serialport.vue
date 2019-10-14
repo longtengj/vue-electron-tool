@@ -43,33 +43,34 @@
                     <span></span>
                 </FormItem>
             </Form>
-            <Form ref="dataToDevice"
-                  :label-width="120"
-                  :rules="ruleValidate">
-                <FormItem label="发送数据"
-                          :label-width="120"
-                          prop="port">
-                    <Input v-model="formItem.textarea"
-                           type="textarea"
-                           :autosize="{minRows: 2,maxRows: 5}"
-                           placeholder="Enter something..."></Input>
-                    <span></span>
-                </FormItem>
-                <FormItem>
-                    <Button type="primary">Submit</Button>
-                    <Button style="margin-left: 8px">Cancel</Button>
-                </FormItem>
-                <FormItem label="接收数据"
-                          prop="baudrate">
-                    <Input v-model="formItem.textarea"
-                           type="textarea"
-                           :autosize="{minRows: 2,maxRows: 5}"
-                           placeholder="Enter something..."></Input>
-                    <span></span>
-                </FormItem>
-
-            </Form>
             <div slot="footer">
+                <Form ref="dataToDevice"
+                      :label-width="120"
+                      :rules="ruleValidate">
+                    <FormItem label="发送数据">
+                        <Input v-model="cmd"
+                               placeholder="cmd data...">
+                        <Select v-model="selectCmd"
+                                slot="prepend"
+                                style="width: 80px">
+                            <Option value="day">cmd1:111</Option>
+                            <Option value="month">cmd2:111</Option>
+                        </Select>
+                        <Button slot="append"
+                                @click="sendDataToDevice">
+                            <Icon type="ios-upload-outline" />发送</Button>
+                        </Input>
+                        <span></span>
+                    </FormItem>
+                    <FormItem label="接收数据">
+                        <Input v-model="formItem.textarea"
+                               type="textarea"
+                               :rows="8"
+                               placeholder="receive data..."
+                               clearable></Input>
+                        <span></span>
+                    </FormItem>
+                </Form>
                 <Button type="default"
                         :disabled="loading"
                         @click="cancel(true)">取消</Button>
@@ -114,11 +115,14 @@
                     }
                 ],
                 ports: [],
-                open: this.$serialport.isopen()
+                // open: this.$serialport.isopen(),
+                open: false,
+                selectCmd: "",
+                cmd: ''
             }
         },
         created() {
-            this.getDeviceTypes()
+            this.getDevicePorts()
             this.formItem.baudrate = localStorage.getItem('baudrate')
         },
         computed: {
@@ -134,24 +138,8 @@
             },
             deviceChange(index) {
             },
-            async getDeviceTypes() {
-                try {
-                    this.ports = this.$serialport.listPort()
-                } catch (error) {
-                    this.$throw(error)
-                }
-            },
-            async getDevices(e) {
-                this.$Message.loading({ content: "获取设备中...", duration: 0 });
-                try {
-                    // let res = await get('/equipment/devices', { type: e })
-                    // this.devices = res.data.produceDevices;
-                    // this.temp.device = null;
-                    this.$Message.destroy()
-                    this.$Message.success({ content: "设备获取成功", duration: 1.5 });
-                } catch (error) {
-                    this.$throw(error)
-                }
+            async getDevicePorts() {
+                this.ports = this.$serialport.listPort()
             },
             openSerialPort() {
                 console.log(this.formItem.port, this.formItem.baudrate, this.open);
@@ -160,9 +148,15 @@
                 }
                 this.$serialport.init(this.formItem.port, this.formItem.baudrate);
 
-                this.open = this.$serialport.isopen()
+                // this.open = this.$serialport.isopen()
 
                 localStorage.setItem('baudrate', this.formItem.baudrate);
+            },
+            sendDataToDevice() {
+                console.log("sendDataToDevice" + this.formItem.port, this.formItem.baudrate, this.open);
+                this.$serialport.send(this.selectCmd + this.cmd, function (err, result) {
+                    alert(`Opened Lockers : ${result}`)
+                })
             },
             async addDevice() {
                 this.$refs.addDevice.validate(async (valid) => {
@@ -179,8 +173,10 @@
                             this.$throw(error)
                         }
                         this.loading = false;
+                        this.cancel(true)
                     }
                 })
+
             },
         }
     }

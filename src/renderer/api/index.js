@@ -18,47 +18,55 @@ import {
 //         lockerSerialPort.writeToComputer(`${result}`)
 //     })
 // }
-const globalData = {
+let globalData = {
     serialPort: null,
     callbackMap: {}
 }
 const core = {
     isOpenPort: () => {
+        console.log("isOpenPort", globalData.serialPort);
         if (globalData.serialPort == null) return false
-        if (globalData.serialPort.isOpen) return true;
+        console.log("isOpenPort", globalData.serialPort.isOpen());
+        if (globalData.serialPort.isOpen()) return true;
         return false;
     },
-    openPort: (port, baudrate) => {
-        let lockerSerialPort
-        if (lockerSerialPort != null) {
-            if (lockerSerialPort.isOpen) {
-                serialport.close(error => { })
-                lockerSerialPort = null
-            }
-            lockerSerialPort = new SerialPort(port, { baudRate: baudrate })
+    openPort: () => {
 
-            lockerSerialPort.on('open', function (error) {
-                if (error) {
-                    return console.log('Error: ', error.message)
-                }
-            })
-            lockerSerialPort.on('data', function (data) {
-                executeRespectiveCallback(data, globalData.callbackMap)
-            })
+    },
+    closePort: () => {
+
+    },
+    init: (port, baudrate) => {
+        let lockerSerialPort
+        if (globalData.serialPort != null) {
+            globalData.serialPort.close(error => { })
         }
+        lockerSerialPort = new SerialPort(port, { baudRate: baudrate })
+
+        lockerSerialPort.on('open', function (error) {
+            // if (error) {
+            //     return console.log('Error: ', error.message)
+            // }
+        })
+        lockerSerialPort.on('data', function (data) {
+            executeRespectiveCallback(data, globalData.callbackMap)
+        })
 
         globalData.serialPort = lockerSerialPort;
     },
-    openBox: (lockerSerialPort, selectedLockers, callback) => {
-        callbackMap.openBox = callback
-        let command = convertSelectedLockersToCommand(selectedLockers)
-        let messageToDevice = `OPEN${command}\n`
-        lockerSerialPort.write(messageToDevice)
+    openBox: (selectedLockers, callback) => {
+        if (core.isOpenPort()) {
+            globalData.callbackMap.openBox = callback
+            let command = convertSelectedLockersToCommand(selectedLockers)
+            let messageToDevice = `OPEN${command}\n`
+            console.log("openBox", selectedLockers);
+            globalData.serialPort.write(messageToDevice)
+        }
     },
-    queryBox: (lockerSerialPort, callback) => {
+    queryBox: (callback) => {
         let messageToDevice = `deligram?\n`
-        lockerSerialPort.write(messageToDevice)
-        callbackMap.queryBox = callback
+        globalData.serialPort.write(messageToDevice)
+        globalData.callbackMap.queryBox = callback
     },
     listSerialPort: () => {
         let portList = []
@@ -82,9 +90,12 @@ const core = {
 
 
 const serialport = {
-    init: (port, baudrate) => core.openPort(port, baudrate),
+    init: (port, baudrate) => core.init(port, baudrate),
+    open: (port) => openPort(port),
+    close: (port) => closePort(port),
     listPort: () => core.listSerialPort(),
-    isopen: () => core.isOpenPort()
+    isopen: () => core.isOpenPort(),
+    send: (data, callback) => core.openBox(data, callback)
 }
 
 export default serialport

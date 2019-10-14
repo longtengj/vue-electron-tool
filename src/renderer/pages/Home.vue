@@ -5,11 +5,14 @@
     <div class="container">
       <router-view class="clearfix"></router-view>
     </div>
+    <Footer class="footer"></Footer>
+
   </div>
 </template>
 <script>
   import Aside from "../components/aside/aside.vue";
   import Header from "../components/header/header.vue";
+  import Footer from "../components/footer/footer.vue";
 
   export default {
     data() {
@@ -17,7 +20,8 @@
     },
     components: {
       Aside,
-      Header
+      Header,
+      Footer
     },
     created() {
       // serialport.list((err, ports) => {
@@ -40,17 +44,26 @@
     .header {
       position: absolute;
       top: 0;
-      left: @view-left;
+      left: 0;
       right: 0;
       height: @view-top;
       line-height: @view-top;
     }
     .aside {
       position: absolute;
-      top: 0;
-      bottom: 0;
+      top: @view-top;
+      bottom: @view-bottom;
       left: 0;
       width: @view-left;
+    }
+    .footer {
+      position: absolute;
+      bottom: 0;
+      // left: @view-left;
+      left: 0;
+      right: 0;
+      height: @view-bottom;
+      line-height: @view-bottom;
     }
     .container {
       position: absolute;

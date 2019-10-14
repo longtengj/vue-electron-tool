@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import lockers from '../api/lockers'
 
-export function responseMessageToComputer (data) {
+export function responseMessageToComputer(data) {
     if (data.includes('OPEN')) {
         return `${data}`
     } else if (data.includes('deligram')) {
@@ -10,7 +10,7 @@ export function responseMessageToComputer (data) {
     }
 }
 
-export function executeRespectiveCallback (data, callbackMap) {
+export function executeRespectiveCallback(data, callbackMap) {
     let result
     if (data.includes('OPEN')) {
         data = data.replace('OPEN', '')

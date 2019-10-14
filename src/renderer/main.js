@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import axios from 'axios'
-// import iView from 'iview'
-import ViewUI from 'view-design';//升级4.0.0
+import iView from 'iview'
+// import ViewUI from 'view-design';//升级4.0.0
 import Router from 'vue-router'
 import App from './App'
 import store from './store'
@@ -13,13 +13,13 @@ import routes from './router/route';
 import serialport from "./api/index";
 
 import './utils/upgrade';
-// import 'iview/dist/styles/iview.css';
-import 'view-design/dist/styles/iview.css';//升级4.0.0
+import 'iview/dist/styles/iview.css';
+// import 'view-design/dist/styles/iview.css';//升级4.0.0
 import './assets/less/common.less';
 
 Vue.use(Router)
-// Vue.use(iView)
-Vue.use(ViewUI);
+Vue.use(iView)
+// Vue.use(ViewUI);
 
 
 Object.keys(filters).forEach(k => Vue.filter(k, filters[k]));

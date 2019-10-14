@@ -1,6 +1,6 @@
 import axios from 'axios';
-// import iview from 'iview';
-import iview from 'view-design';
+import iview from 'iview';
+// import iview from 'view-design';
 
 export const _back_public = axios.create({
   baseURL: '/back-public',

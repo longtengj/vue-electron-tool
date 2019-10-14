@@ -1,16 +1,16 @@
 <style lang="less">
   @import "../../assets/less/global.less";
 
-  header {
+  footer {
     font-family: "Microsoft YaHei";
-    font-size: 16px;
+    font-size: 14px;
     overflow: hidden;
-    background-color: @header-color;
-    /*background: linear-gradient(90deg, @header-color, @bg-color);*/
+    background-color: @footer-color;
+    /*background: linear-gradient(90deg, @footer-color, @bg-color);*/
     -webkit-app-region: drag;
-    .left {
-      float: left;
-      margin-left: 8px;
+    .bottom {
+      float: bottom;
+      margin-bottom: 8px;
     }
     .version {
       font-size: 12px;
@@ -32,10 +32,8 @@
 </style>
 
 <template>
-  <header>
-    <section class="left">
-      <Icon type="ios-paper"
-            :size="30" />
+  <footer>
+    <section class="bottom">
       xpoct-tool
     </section>
     <section class="version">
@@ -92,7 +90,7 @@
         </Button>
       </div>
     </Modal>
-  </header>
+  </footer>
 </template>
 <script>
   import packageJson from '../../../../package.json';
