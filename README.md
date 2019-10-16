@@ -1,6 +1,6 @@
 # xpoct-tool
 
-> 类poct仪器工具软件
+> 仪器工具软件
 
 #### Build Setup
 
