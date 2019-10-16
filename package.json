@@ -1,8 +1,8 @@
 {
   "name": "xpoct-tool",
   "version": "0.1.2",
-  "author": "longtengjun <longtengj@xinchengbio.com>",
-  "description": "类poct仪器工具软件",
+  "author": "longtengjun <longtengj@163.com>",
+  "description": "类仪器工具软件",
   "license": null,
   "main": "./dist/electron/main.js",
   "repository": {
