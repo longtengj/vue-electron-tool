@@ -5,17 +5,11 @@ const menu = [
     path: '/goods',
     component: require('@/pages/menu/goods').default,
   },
-  {
-    icon: 'clipboard',
-    title: '我的测试',
-    path: '/detailList',
-    component: require('@/pages/menu/detaillist').default,
-  },
-  {
-    icon: 'clipboard',
-    title: '协议调试',
-    path: '/lockerList',
-    component: require('@/pages/menu/serialportDebug').default,
-  },
+  // {
+  //   icon: 'clipboard',
+  //   title: '我的测试',
+  //   path: '/detailList',
+  //   component: require('@/pages/menu/detaillist').default,
+  // },
 ];
 export default menu;

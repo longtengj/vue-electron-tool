@@ -68,10 +68,6 @@
               :size="30"
               color="white"></Icon>
         <DropdownMenu slot="list">
-          <DropdownItem name="serialport">
-            <Icon type="ios-cloud-download-outline"
-                  :size="18" />串口设置
-          </DropdownItem>
           <DropdownItem name="update">
             <Icon type="ios-cloud-download-outline"
                   :size="18"></Icon>检查更新
@@ -106,13 +102,11 @@
         <Button @click="modalShow = false">关闭</Button>
       </div>
     </Modal>
-    <SerialportCompontent @cancel="modalCancel"
-                          v-if="serialportModal" />
+
   </aside>
 </template>
 
 <script>
-  import SerialportCompontent from './serialport.vue'
   import menus from "../../router/menu";
   import packageJson from "../../../../package.json";
   import { docDir } from "../../utils/settings";
@@ -123,14 +117,11 @@
         menus,
         activeMenuName: "",
         modalShow: false,
-        serialportModal: false,
         version: packageJson.version,
         docDir,
       };
     },
-    components: {
-      SerialportCompontent
-    },
+
     methods: {
       selectMenu(path) {
         this.$router.push({ path });
@@ -157,9 +148,6 @@
       openPath(path) {
         this.$electron.shell.openItem(path);
       },
-      modalCancel(type, reload) {
-        this[type + 'Modal'] = false;
-      }
     },
     watch: {
       $route() {

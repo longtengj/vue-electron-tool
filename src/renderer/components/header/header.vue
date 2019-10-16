@@ -11,6 +11,11 @@
     .left {
       float: left;
       margin-left: 8px;
+      b {
+        -webkit-app-region: no-drag;
+        color: #000;
+        margin-left: 10px;
+      }
     }
     .version {
       font-size: 12px;
@@ -35,8 +40,16 @@
   <header>
     <section class="left">
       <Icon type="ios-paper"
-            :size="30" />
+            :size="15" />
       xpoct-tool
+    </section>
+    <section class="left">
+      <b @click="serialportModal = true">
+        <Icon type="ios-cog-outline"
+              style="margin-top:5px"
+              :size="30"
+              color="white" />
+      </b>
     </section>
     <section class="version">
       {{updateText}}
@@ -54,6 +67,7 @@
       </Tooltip>
 
     </section>
+
     <section class="right">
       <a href="javascript:void(0)"
          @click="minWindows">
@@ -92,11 +106,13 @@
         </Button>
       </div>
     </Modal>
+    <SerialportCompontent @cancel="modalCancel"
+                          v-if="serialportModal" />
   </header>
 </template>
 <script>
   import packageJson from '../../../../package.json';
-
+  import SerialportCompontent from './serialport.vue'
   export default {
     data() {
       return {
@@ -115,9 +131,16 @@
           releaseDate: '',
           version: '',
         },
+        serialportModal: false,
       };
     },
+    components: {
+      SerialportCompontent
+    },
     methods: {
+      modalCancel(type, reload) {
+        this[type + 'Modal'] = false;
+      },
       minWindows() {
         this.$electron.ipcRenderer.send('min-window');
       },
