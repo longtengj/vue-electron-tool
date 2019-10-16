@@ -153,6 +153,7 @@
                     <p slot="title">数据接收区</p>
                     <Table stripe
                            border
+                           height="600"
                            :columns="columns"
                            :data="recvAreaData"></Table>
                 </div>
